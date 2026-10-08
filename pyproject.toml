@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deeposint"
+version = "0.1.0"
+description = "Street-level photo geolocation: OSM roads -> Street View gallery -> learned retrieval -> geometric verification -> re-ranking."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "numpy>=1.24",
+    "pillow>=10.0",
+    "requests>=2.31",
+    "tqdm>=4.66",
+]
+
+[project.optional-dependencies]
+# Global descriptors (MegaLoc / DINOv2 via torch.hub) and local matching.
+vision = [
+    "torch>=2.2",
+    "torchvision>=0.17",
+    "opencv-python-headless>=4.9",
+    "lightglue @ git+https://github.com/cvg/LightGlue.git",
+]
+# Learned re-ranker.
+rerank = ["lightgbm>=4.3", "scikit-learn>=1.4"]
+# HEIC input support.
+heic = ["pillow-heif>=0.16"]
+all = ["deeposint[vision,rerank,heic]"]
+
+[project.scripts]
+deeposint = "deeposint.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["deeposint*"]

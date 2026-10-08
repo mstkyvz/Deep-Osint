@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+
+# pipeline outputs and caches
+runs/
+http_cache/
+*.npz
+reranker.txt
+
+.DS_Store
